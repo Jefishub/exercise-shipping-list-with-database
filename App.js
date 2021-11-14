@@ -1,49 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, FlatList } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import HomeScreen from './HomeScreen';
+import SettingScreen from './SettingScreen';
+import { Ionicons } from '@expo/vector-icons';
+import { createStackNavigator} from'@react-navigation/stack';
+
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
-  const [newItem, setNewItem] = useState('');
-  const [shoppingList, setShoppingList] = useState([]);
-
-  const addToShoppingList = () => {
-    setShoppingList([...shoppingList, newItem]);
-  }
-  const clearShoppingList = () => {
-    setShoppingList([]);
-  }
-
   return (
-    <View style={styles.container}>
-      <View>
-        <TextInput
-          style={{
-            width: 200,
-            borderColor: 'gray',
-            borderWidth: 1
-          }} onChangeText={newItem => setNewItem(newItem)} value={newItem} />
-        <StatusBar style="auto" />
-      </View>
-      <View style={{ flexDirection: 'row' }}>
-        <Button onPress={addToShoppingList} title="ADD" />
-        <View style={{ marginRight: 10 }}></View>
-        <Button onPress={clearShoppingList} title="CLEAR" />
-      </View>
-      <View style={{
-        width: 200
-      }}>
-        <Text style={{ color: 'blue', fontWeight: 'bold' }}>Shopping List:</Text>
-        <FlatList data={shoppingList} renderItem={({ item }) => <Text>{item}</ Text>} />
-      </View>
-    </View>
+    <NavigationContainer>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            if (route.name === 'Home') {
+              iconName = 'md-home';
+            }
+            else if (route.name === 'Settings') {
+              iconName = 'md-settings';
+            }
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+        })}>
+        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Settings" component={SettingScreen} />
+      </ Tab.Navigator>
+    </NavigationContainer>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+};
