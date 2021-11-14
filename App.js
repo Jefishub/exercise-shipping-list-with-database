@@ -1,17 +1,30 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Alert } from 'react-native';
+
+const RANDOM_NUMBER = Math.floor(Math.random() * 100) + 1;
 
 export default function App() {
-  const [value1, setValue1] = useState(0);
-  const [value2, setValue2] = useState(0);
-  const [result, setResult] = useState(value1 + value2);
+  const [value, setValue] = useState(0);
+  const [result, setResult] = useState("Guess a number between 1-100");
+  const [count, setCount] = useState(0)
 
-  const addition = () => { setResult(value1 + value2); }
-  const subtraction = () => { setResult(value1 - value2); }
-  
+  const guess = () => {
+    value == RANDOM_NUMBER ? correctAnswer() : wrongAnswer();
+  }
+
+  const wrongAnswer = () => {
+    const isLower = RANDOM_NUMBER - value < 0 ? 'high' : 'low';
+    setResult('Your guess ' + value + ' is too ' + isLower)
+    setCount(count + 1);
+  };
+
+  const correctAnswer = () => {
+    Alert.alert('You guessed the number in ' + count + ' guessess');
+  };
+
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <View style={{}}>
         <Text>Result: {result}</Text>
         <TextInput
@@ -20,19 +33,11 @@ export default function App() {
             width: 200,
             borderColor: 'gray',
             borderWidth: 1
-          }} onChangeText={value1 => setValue1(Number(value1))} value={value1} />
-        <TextInput
-          keyboardType='numeric' style={{
-            width: 200,
-            borderColor: 'gray',
-            borderWidth: 1
-          }} onChangeText={value2 => setValue2(Number(value2))} value={value2} />
+          }} onChangeText={value => setValue(Number(value))} value={value} />
         <StatusBar style="auto" />
       </View>
-      <View style={{flexDirection: 'row'}}>
-        <Button onPress={addition} title="+" />
-        <View style={{marginRight: 10 }}></View>
-        <Button onPress={subtraction} title="-" />
+      <View style={{ flexDirection: 'row' }}>
+        <Button onPress={guess} title="Make Guess" />
       </View>
     </View>
   );
