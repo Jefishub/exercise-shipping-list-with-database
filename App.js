@@ -3,47 +3,37 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, FlatList } from 'react-native';
 
 export default function App() {
-  const [value1, setValue1] = useState(0);
-  const [value2, setValue2] = useState(0);
-  const [result, setResult] = useState(value1 + value2);
-  const [text, setText] = useState('');
-  const [data, setData] = useState(['History']);
+  const [newItem, setNewItem] = useState('');
+  const [shoppingList, setShoppingList] = useState([]);
 
-  const addition = () => {
-    setData([...data, value1 + " + " + value2 + " = " + (value1 + value2)]);
-    setResult(value1 + value2);
+  const addToShoppingList = () => {
+    setShoppingList([...shoppingList, newItem]);
   }
-  const subtraction = () => {
-    setData([...data, value1 + " - " + value2 + " = " + (value1 - value2)]);
-    setResult(value1 - value2);
+  const clearShoppingList = () => {
+    setShoppingList([]);
   }
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', margin: '40%' }}>
+    <View style={styles.container}>
       <View>
-        <Text>Result: {result}</Text>
         <TextInput
-          keyboardType='numeric'
           style={{
             width: 200,
             borderColor: 'gray',
             borderWidth: 1
-          }} onChangeText={value1 => setValue1(Number(value1))} value={value1} />
-        <TextInput
-          keyboardType='numeric' style={{
-            width: 200,
-            borderColor: 'gray',
-            borderWidth: 1
-          }} onChangeText={value2 => setValue2(Number(value2))} value={value2} />
+          }} onChangeText={newItem => setNewItem(newItem)} value={newItem} />
         <StatusBar style="auto" />
       </View>
       <View style={{ flexDirection: 'row' }}>
-        <Button onPress={addition} title="+" />
+        <Button onPress={addToShoppingList} title="ADD" />
         <View style={{ marginRight: 10 }}></View>
-        <Button onPress={subtraction} title="-" />
+        <Button onPress={clearShoppingList} title="CLEAR" />
       </View>
-      <View style={{flex:1}}>
-        <FlatList data={data} renderItem={({ item }) => <Text>{item}</ Text>} />
+      <View style={{
+        width: 200
+      }}>
+        <Text style={{ color: 'blue', fontWeight: 'bold' }}>Shopping List:</Text>
+        <FlatList data={shoppingList} renderItem={({ item }) => <Text>{item}</ Text>} />
       </View>
     </View>
   );
