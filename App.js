@@ -1,31 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, Alert } from 'react-native';
-
-const RANDOM_NUMBER = Math.floor(Math.random() * 100) + 1;
+import { StyleSheet, Text, View, Button, TextInput, FlatList } from 'react-native';
 
 export default function App() {
-  const [value, setValue] = useState(0);
-  const [result, setResult] = useState("Guess a number between 1-100");
-  const [count, setCount] = useState(0)
+  const [value1, setValue1] = useState(0);
+  const [value2, setValue2] = useState(0);
+  const [result, setResult] = useState(value1 + value2);
+  const [text, setText] = useState('');
+  const [data, setData] = useState(['History']);
 
-  const guess = () => {
-    value == RANDOM_NUMBER ? correctAnswer() : wrongAnswer();
+  const addition = () => {
+    setData([...data, value1 + " + " + value2 + " = " + (value1 + value2)]);
+    setResult(value1 + value2);
+  }
+  const subtraction = () => {
+    setData([...data, value1 + " - " + value2 + " = " + (value1 - value2)]);
+    setResult(value1 - value2);
   }
 
-  const wrongAnswer = () => {
-    const isLower = RANDOM_NUMBER - value < 0 ? 'high' : 'low';
-    setResult('Your guess ' + value + ' is too ' + isLower)
-    setCount(count + 1);
-  };
-
-  const correctAnswer = () => {
-    Alert.alert('You guessed the number in ' + count + ' guessess');
-  };
-
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <View style={{}}>
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', margin: '40%' }}>
+      <View>
         <Text>Result: {result}</Text>
         <TextInput
           keyboardType='numeric'
@@ -33,11 +28,22 @@ export default function App() {
             width: 200,
             borderColor: 'gray',
             borderWidth: 1
-          }} onChangeText={value => setValue(Number(value))} value={value} />
+          }} onChangeText={value1 => setValue1(Number(value1))} value={value1} />
+        <TextInput
+          keyboardType='numeric' style={{
+            width: 200,
+            borderColor: 'gray',
+            borderWidth: 1
+          }} onChangeText={value2 => setValue2(Number(value2))} value={value2} />
         <StatusBar style="auto" />
       </View>
       <View style={{ flexDirection: 'row' }}>
-        <Button onPress={guess} title="Make Guess" />
+        <Button onPress={addition} title="+" />
+        <View style={{ marginRight: 10 }}></View>
+        <Button onPress={subtraction} title="-" />
+      </View>
+      <View style={{flex:1}}>
+        <FlatList data={data} renderItem={({ item }) => <Text>{item}</ Text>} />
       </View>
     </View>
   );
