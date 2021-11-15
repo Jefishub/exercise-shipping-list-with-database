@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, FlatList, Image } from 'react-native';
 
-export default function Calculator({ navigation }) {
+export default function RecipeFinder({ navigation }) {
   const [keyword, setKeyword] = useState('');
   const [repositories, setRepositories] = useState([]);
 

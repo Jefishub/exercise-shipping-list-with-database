@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import Calculator from './Calculator';
+import RecipeFinder from './recipeFinder';
 import History from './History';
 import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator} from'@react-navigation/stack';
@@ -14,7 +14,7 @@ export default function App() {
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
-            if (route.name === 'Calculator') {
+            if (route.name === 'recipeFinder') {
               iconName = 'md-home';
             }
             else if (route.name === 'History') {
@@ -23,7 +23,7 @@ export default function App() {
             return <Ionicons name={iconName} size={size} color={color} />;
           },
         })}>
-        <Stack.Screen name="Calculator" component={Calculator} />
+        <Stack.Screen name="recipeFinder" component={RecipeFinder} />
         <Stack.Screen name="History" component={History} />
       </ Stack.Navigator>
     </NavigationContainer>
