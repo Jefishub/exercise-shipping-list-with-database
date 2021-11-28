@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import EuroConverter from './EuroConverter';
+import FindAddress from './FindAddress';
 import History from './History';
 import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator} from'@react-navigation/stack';
@@ -14,7 +14,7 @@ export default function App() {
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
-            if (route.name === 'EuroConverter') {
+            if (route.name === 'FindAddress') {
               iconName = 'md-home';
             }
             else if (route.name === 'History') {
@@ -23,7 +23,7 @@ export default function App() {
             return <Ionicons name={iconName} size={size} color={color} />;
           },
         })}>
-        <Stack.Screen name="EuroConverter" component={EuroConverter} />
+        <Stack.Screen name="FindAddress" component={FindAddress} />
         <Stack.Screen name="History" component={History} />
       </ Stack.Navigator>
     </NavigationContainer>
