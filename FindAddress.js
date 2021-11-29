@@ -4,11 +4,11 @@ import MapView, { Marker } from 'react-native-maps';
 
 const API_URL = "http://www.mapquestapi.com/geocoding/v1/address";
 const API_KEY = "nk4AOXVkJGl4bHJ7ycsAQdTN2JRd4YW1";
-const INITIAL_REGION = { latitude: 60.200692, longitude: 24.934302, latitudeDelta: 0.0322, longitudeDelta: 0.0221, };
+const INITIAL_REGION = { latitude: 60.200692, longitude: 24.934302, latitudeDelta: 0.003, longitudeDelta: 0.002, };
 const INITIAL_MARKER = { latitude: 60.200692, longitude: 24.934302 }
 
 export default function App() {
-  const [latLng, setLatLng] = useState({ region: INITIAL_REGION });
+  const [latLng, setLatLng] = useState(INITIAL_REGION);
   const [marker, setMarker] = useState(INITIAL_MARKER);
   const [locationAddress, setLocationAddress] = useState('Helsinki');
 
@@ -16,14 +16,14 @@ export default function App() {
     fetch(API_URL + "?key=" + API_KEY + "&location=" + locationAddress, { method: 'GET' })
       .then(res => res.json())
       .then((resJson) => {
-        setLatLng({
-          region: {
+        setLatLng(
+          {
             latitude: resJson.results[0].locations[0].latLng.lat,
             longitude: resJson.results[0].locations[0].latLng.lng,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
+            latitudeDelta: 0.003,
+            longitudeDelta: 0.002,
           }
-        });
+        );
         setMarker({
           latitude: resJson.results[0].locations[0].latLng.lat,
           longitude: resJson.results[0].locations[0].latLng.lng
