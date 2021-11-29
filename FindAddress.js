@@ -1,20 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, StatusBar, View, TextInput, Button } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 
 const API_URL = "http://www.mapquestapi.com/geocoding/v1/address";
 const API_KEY = "nk4AOXVkJGl4bHJ7ycsAQdTN2JRd4YW1";
-const initialRegion = { latitude: 60.200692, longitude: 24.934302, latitudeDelta: 0.0322, longitudeDelta: 0.0221, };
-const initialMarker = { latitude: 60.200692, longitude: 24.934302 }
+const INITIAL_REGION = { latitude: 60.200692, longitude: 24.934302, latitudeDelta: 0.0322, longitudeDelta: 0.0221, };
+const INITIAL_MARKER = { latitude: 60.200692, longitude: 24.934302 }
 
 export default function App() {
-  const [latLng, setLatLng] = useState({ region: initialRegion });
-  const [marker, setMarker] = useState(initialMarker);
+  const [latLng, setLatLng] = useState({ region: INITIAL_REGION });
+  const [marker, setMarker] = useState(INITIAL_MARKER);
   const [locationAddress, setLocationAddress] = useState('Helsinki');
-
-  useEffect(() => {
-    fetchData();
-  }, [])
 
   const fetchData = () => {
     fetch(API_URL + "?key=" + API_KEY + "&location=" + locationAddress, { method: 'GET' })
