@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "maptest",
-    "slug": "maptest",
+    "name": "find-the-address",
+    "slug": "find-the-address",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,6 +28,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "description": ""
+    "description": "Might be buggy. MapView was not working for some reason"
   }
 }

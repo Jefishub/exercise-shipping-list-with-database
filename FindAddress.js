@@ -4,11 +4,13 @@ import MapView, { Marker } from 'react-native-maps';
 
 const API_URL = "http://www.mapquestapi.com/geocoding/v1/address";
 const API_KEY = "nk4AOXVkJGl4bHJ7ycsAQdTN2JRd4YW1";
+const initialRegion = { latitude: 60.200692, longitude: 24.934302, latitudeDelta: 0.0322, longitudeDelta: 0.0221, };
+const initialMarker = { latitude: 60.200692, longitude: 24.934302 }
 
 export default function App() {
   const [latLng, setLatLng] = useState({ region: initialRegion });
+  const [marker, setMarker] = useState(initialMarker);
   const [locationAddress, setLocationAddress] = useState('Helsinki');
-  const initialRegion = { latitude: 60.200692, longitude: 24.934302, latitudeDelta: 0.0322, longitudeDelta: 0.0221, };
 
   useEffect(() => {
     fetchData();
@@ -20,13 +22,16 @@ export default function App() {
       .then((resJson) => {
         setLatLng({
           region: {
-            latitude: JSON.stringify(resJson.results[0].locations[0].latLng.lat),
-            longitude: JSON.stringify(resJson.results[0].locations[0].latLng.lng),
+            latitude: resJson.results[0].locations[0].latLng.lat,
+            longitude: resJson.results[0].locations[0].latLng.lng,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
           }
         });
-        console.log(latLng);
+        setMarker({
+          latitude: resJson.results[0].locations[0].latLng.lat,
+          longitude: resJson.results[0].locations[0].latLng.lng
+        })
       })
       .catch((error) => {
         console.error(error);
@@ -34,7 +39,7 @@ export default function App() {
   }
 
   return (
-    <View>
+    <View style={styles.container}>
       <TextInput
         style={styles.input}
         onChangeText={setLocationAddress}
@@ -47,7 +52,7 @@ export default function App() {
       <MapView
         style={styles.map}
         region={latLng}>
-        <Marker coordinate={latLng} title={locationAddress} />
+        <Marker coordinate={marker} title={locationAddress} />
       </MapView>
     </View>
   );
