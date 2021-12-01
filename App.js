@@ -60,7 +60,7 @@ export default function App() {
       <TextInput placeholder='Product' style={{ marginTop: 30, fontSize: 18, width: 200, borderColor: 'gray', borderWidth: 1 }}
         onChangeText={(product) => setProduct(product)}
         value={product} />
-      <TextInput placeholder='Amounts' keyboardType="numeric" style={{ marginTop: 5, marginBottom: 5, fontSize: 18, width: 200, borderColor: 'gray', borderWidth: 1 }}
+      <TextInput placeholder='Amounts' style={{ marginTop: 5, marginBottom: 5, fontSize: 18, width: 200, borderColor: 'gray', borderWidth: 1 }}
         onChangeText={(amount) => setAmount(amount)}
         value={amount} />
       <Button onPress={saveItem} title="Save" />

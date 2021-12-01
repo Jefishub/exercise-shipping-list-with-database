@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "find-the-address-with-location",
-    "slug": "find-the-address-with-location",
+    "name": "ShoppingList-with-database",
+    "slug": "shoppinglist-with-database",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
