@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "phonenumbers",
-    "slug": "phonenumbers",
+    "name": "text-to-speech",
+    "slug": "text-to-speech",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

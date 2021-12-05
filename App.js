@@ -1,63 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import * as Contacts from 'expo-contacts';
-import { FlatList } from 'react-native-gesture-handler';
+import React, {useState} from 'react';
+import { View, StyleSheet, Button, TextInput } from 'react-native';
+import * as Speech from 'expo-speech';
 
 export default function App() {
-  const [hasPermission, setHasPermission] = useState(null);
-  const [contacts, setContacts] = useState([]);
+  const [text, setText] = useState('What do you want me to say')
 
-  useEffect(() => {
-    requestPermission();
-  }, []);
-
-  const requestPermission = async () => {
-    const { status } = await Contacts.requestPermissionsAsync();
-    setHasPermission(status === 'granted');
-  }
-
-  const getContacts = async () => {
-    const { status } = await Contacts.requestPermissionsAsync();
-    setHasPermission(status === 'granted');
-
-    if (status === 'granted') {
-      const { data } = await Contacts.getContactsAsync({
-        fields: [Contacts.Fields.PhoneNumbers]
-      })
-
-      setContacts(data);
-      if (data.length > 0) {
-        setCurrentContact(data);
-      }
-    }
-  }
+  const speak = () => {
+    Speech.speak(text);
+  };
 
   return (
-
-    <View style={styles.container} >
-      <StatusBar style="auto" />
-      {
-        hasPermission ? (
-          <View>
-            <FlatList
-              style={{ marginLeft: "5%" }}
-              keyExtractor={(item, index) => index}
-              renderItem={({ item }) =>
-                <View style={styles.listcontainer}>
-                  <Text style={{ fontSize: 18 }}>{item.firstName} {item.lastName}, {item.phoneNumbers[0].number}</Text>
-                </View>}
-              data={contacts}
-            />
-            <Button title="Show Contacts" onPress={getContacts} />
-          </View>
-        ) : (
-          <View>
-            <Text>No permission to use Contacts</Text>
-            <Button title="Change permissions" onPress={requestPermission} />
-          </View>
-        )
-      }
+    <View style={styles.container}>
+      <TextInput
+        style={styles.input}
+        onChangeText={(text) => setText(text)}
+        value={text}/>
+      <Button title="Press to hear some words" onPress={speak} />
     </View>
   );
 }
@@ -76,4 +34,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center'
   },
+  input : {
+    margin: 24,
+    width:200  , 
+    height: 60,
+    borderColor: 'gray', 
+    borderWidth: 1
+  }
 });
