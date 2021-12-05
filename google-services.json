@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "301876490657",
+    "firebase_url": "https://exercise-shoppinglist-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "exercise-shoppinglist",
+    "storage_bucket": "exercise-shoppinglist.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:301876490657:android:a289df01a9cab5f9e11be0",
+        "android_client_info": {
+          "package_name": "jere.haaga.shoppinglist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "301876490657-hieaf3cm4qs0u749v9k88riba7q4c7h3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXliK6iX59dzjfobUEfiZN1rEbMbJZDJY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "301876490657-hieaf3cm4qs0u749v9k88riba7q4c7h3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
